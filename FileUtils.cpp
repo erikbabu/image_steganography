@@ -15,15 +15,15 @@ using std::bitset;
 vector<bitset<ASCII_BITS> > getBinaryFileContents(const string& filename)
 {
   auto inputFile = validateFile(filename);
-
   string fileContents = getStringFileContents(inputFile);
   checkFileContainsOnlyAscii(fileContents);
 
+  //container to store the binary representation of the input
   vector<bitset<ASCII_BITS> > ret;
 
-  for (auto it = fileContents.begin(); it != fileContents.end(); ++it)
+  for (auto c : fileContents)
   {
-    ret.push_back(bitset<ASCII_BITS>(*it));
+    ret.push_back(bitset<ASCII_BITS>(c));
   }
 
   return ret;
@@ -31,6 +31,7 @@ vector<bitset<ASCII_BITS> > getBinaryFileContents(const string& filename)
 
 ifstream validateFile(const string& filename)
 {
+  checkValidFileExtension(filename);
   ifstream inputFile;
   inputFile.open(filename);
 
@@ -53,11 +54,9 @@ string getStringFileContents(ifstream& inputFile)
 
 void checkFileContainsOnlyAscii(const string& fileContents)
 {
-  for(auto it = fileContents.begin(); it != fileContents.end(); ++it)
+  for(auto current : fileContents) 
   {
-    auto current = *it;
-    int current_ord = current;
-    if (current_ord < 0 || current_ord > MAX_ASCII_VAL)
+    if (current < 0 || current > MAX_ASCII_VAL)
     {
       cerr << "The following character: " << current
         << " is out of ASCII range!";
@@ -69,20 +68,20 @@ void checkFileContainsOnlyAscii(const string& fileContents)
 
 char convertBinToChar(const bitset<8>& bin_rep)
 {
-  int ord = (int)(bin_rep.to_ulong());
-  return (char) ord;
+  return (int)(bin_rep.to_ulong());
 }
 
 void checkValidFileExtension(const string& filename)
 {
   //currently only supports text file conversion
-  static set<string> valid_extensions = { ".txt" };
+  static set<string> valid_extensions = { "txt" };
 
-  if (valid_extensions.find(getExtension(filename)) == valid_extensions.end())
+  if (valid_extensions.find(getExtension(filename)) == 
+        valid_extensions.end())
   {
     cerr << "Sorry. This is not a supported file extension at this time. "
       << "The following extensions are supported:" << endl;
-    for (auto it = valid_extensions.begin(); it != valid_extensions.end(); ++it) cerr << *it << endl;
+    for (auto ext : valid_extensions) cerr << ext << endl;
     exit(1);
   }
 }
@@ -90,7 +89,6 @@ void checkValidFileExtension(const string& filename)
 string getExtension(const string& filename)
 {
   string::size_type last_dot;
-
   last_dot = filename.rfind('.');
 
   if(last_dot != string::npos)
