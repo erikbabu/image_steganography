@@ -30,7 +30,7 @@ int PicUtils::saveimage(Mat img, string filename)
   vector<int> compression_params;
 
   compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
-  compression_params.push_back(100);
+  compression_params.push_back(95);
 
   try{
     imwrite(filename, img, compression_params);

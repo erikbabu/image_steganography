@@ -12,18 +12,18 @@ using std::endl;
 using std::stringstream;
 using std::bitset;
 
-vector<bitset<ASCII_BITS> > getBinaryFileContents(const string& filename)
+vector<bitset<UNICODE_BITS> > getBinaryFileContents(const string& filename)
 {
   auto inputFile = validateFile(filename);
-  string fileContents = getStringFileContents(inputFile);
-  checkFileContainsOnlyAscii(fileContents);
+  string fileContents = getStringFileContents(inputFile) + END_OF_MESSAGE;
+  checkFileContainsOnlyUnicode(fileContents);
 
   //container to store the binary representation of the input
-  vector<bitset<ASCII_BITS> > ret;
+  vector<bitset<UNICODE_BITS> > ret;
 
   for (auto c : fileContents)
   {
-    ret.push_back(bitset<ASCII_BITS>(c));
+    ret.push_back(bitset<UNICODE_BITS>(c));
   }
 
   return ret;
@@ -52,21 +52,20 @@ string getStringFileContents(ifstream& inputFile)
   return buffer.str();
 }
 
-void checkFileContainsOnlyAscii(const string& fileContents)
+void checkFileContainsOnlyUnicode(const string& fileContents)
 {
-  for(auto current : fileContents) 
+  for(auto current : fileContents)
   {
-    if (current < 0 || current > MAX_ASCII_VAL)
+    if (current < 0 || current > MAX_UNICODE_VAL)
     {
       cerr << "The following character: " << current
-        << " is out of ASCII range!";
+        << " is out of UNICODE range!";
       exit(1);
     }
   }
 }
 
-
-char convertBinToChar(const bitset<8>& bin_rep)
+char convertBinToChar(const bitset<UNICODE_BITS>& bin_rep)
 {
   return (int)(bin_rep.to_ulong());
 }
@@ -76,7 +75,7 @@ void checkValidFileExtension(const string& filename)
   //currently only supports text file conversion
   static set<string> valid_extensions = { "txt" };
 
-  if (valid_extensions.find(getExtension(filename)) == 
+  if (valid_extensions.find(getExtension(filename)) ==
         valid_extensions.end())
   {
     cerr << "Sorry. This is not a supported file extension at this time. "
