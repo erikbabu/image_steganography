@@ -11,7 +11,7 @@ When encrypting: ./img_steg image_filename text_filename
 
 When decrypting: ./img_step image_filename
 
-3) View results: When encrypting, the output will be an image saved with the original's name + 'encrypted'. This image will have the secret text embedded. When decrypting, the output will be a text file saved as 'decrypted_output.txt'. This file will contain extracted text that was embedded in the image. 
+3) View results: When encrypting, the output will be an image saved as 'embedded_image.jpeg'. This image will have the secret text embedded. When decrypting, the output will be a text file saved as 'decrypted_output.txt'. This file will contain extracted text that was embedded in the image. 
 
 Note: If the image used for decryption has not been encrypted, the generated output will be garbage.
 
