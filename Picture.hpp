@@ -5,7 +5,7 @@
 #include "PicUtils.hpp"
 
 //Allows for image manipulation via the opencv lib
-class Picture { 
+class Picture {
 
   public:
 
@@ -27,14 +27,8 @@ class Picture {
   // sets pixel in the image to provided colour
   void setpixel(int x, int y, Colour rgb);
 
-  // checks if coordinates are within bounds of the stored image
-  bool contains(int x, int y);
-
   // provides the image of the class
   cv::Mat getimage();
-
-  // overwrites Picture image with another image
-  void setimage(cv::Mat cpyimg);
 
   private:
 

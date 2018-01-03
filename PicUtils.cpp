@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstdio>
 #include <vector>
 #include "PicUtils.hpp"
 
@@ -26,11 +25,6 @@ Mat PicUtils::createimage(int width, int height)
   return img;
 }
 
-Mat PicUtils::copyimage(Mat img)
-{
-  return img.clone();
-}
-
 int PicUtils::saveimage(Mat img, string filename)
 {
   vector<int> compression_params;
@@ -39,13 +33,13 @@ int PicUtils::saveimage(Mat img, string filename)
   compression_params.push_back(100);
 
   try{
-      imwrite(filename, img, compression_params);
+    imwrite(filename, img, compression_params);
   }catch (runtime_error& ex) {
-      fprintf(stderr, "Exception converting image to JPEG format: %s\n", 
+    fprintf(stderr, "Exception converting image to JPEG format: %s\n",
           ex.what());
     return 1;
   }
-  
+
   return 0;
 }
 
