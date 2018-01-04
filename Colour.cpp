@@ -1,11 +1,5 @@
 #include "Colour.hpp"
 
-Colour::Colour(int red, int green, int blue){
-  this->red = red;
-  this->green = green;
-  this->blue = blue;
-}
-
 int Colour::getRed() const
 {
   return red;

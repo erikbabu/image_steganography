@@ -9,7 +9,7 @@ class Colour {
   public:
 
   // class constructor (sets all attributes)
-  Colour(int red, int green, int blue);
+  Colour(int red, int green, int blue) : red(red), green(green), blue(blue) {}
 
   // returns pixel intensity for different RGB colour components
   int getRed() const;
