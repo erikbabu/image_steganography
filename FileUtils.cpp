@@ -8,20 +8,23 @@ using std::vector;
 using std::string;
 using std::ifstream;
 using std::cerr;
+using std::cout;
 using std::endl;
 using std::stringstream;
 using std::bitset;
+using cv::Mat;
+using std::ofstream;
 
 vector<bitset<UNICODE_BITS> > getBinaryFileContents(const string& filename)
 {
-  auto inputFile = validateFile(filename);
-  string fileContents = getStringFileContents(inputFile) + END_OF_MESSAGE;
-  checkFileContainsOnlyUnicode(fileContents);
+  auto input_file = validateFile(filename);
+  string file_contents = getStringFileContents(input_file) + END_OF_MESSAGE;
+  checkFileContainsOnlyUnicode(file_contents);
 
   //container to store the binary representation of the input
   vector<bitset<UNICODE_BITS> > ret;
 
-  for (auto c : fileContents)
+  for (auto c : file_contents)
   {
     ret.push_back(bitset<UNICODE_BITS>(c));
   }
@@ -32,29 +35,29 @@ vector<bitset<UNICODE_BITS> > getBinaryFileContents(const string& filename)
 ifstream validateFile(const string& filename)
 {
   checkValidFileExtension(filename);
-  ifstream inputFile;
-  inputFile.open(filename);
+  ifstream input_file;
+  input_file.open(filename);
 
-  if (!inputFile)
+  if (!input_file)
   {
     cerr << "Unable to open file: " << filename << endl;
     exit(1);
   }
 
-  return inputFile;
+  return input_file;
 }
 
-string getStringFileContents(ifstream& inputFile)
+string getStringFileContents(ifstream& input_file)
 {
   stringstream buffer;
-  buffer << inputFile.rdbuf();
+  buffer << input_file.rdbuf();
 
   return buffer.str();
 }
 
-void checkFileContainsOnlyUnicode(const string& fileContents)
+void checkFileContainsOnlyUnicode(const string& file_contents)
 {
-  for(auto current : fileContents)
+  for(auto current : file_contents)
   {
     if (current < 0 || current > MAX_UNICODE_VAL)
     {
@@ -99,4 +102,28 @@ string getExtension(const string& filename)
     cerr << "Error: No extension found!" << endl;
     exit(1);
   }
+}
+
+void saveEncryptedImage(const Mat& img)
+{
+  auto encrypted_image_filename = "embedded_image.png";
+  PicUtils picUtils;
+  picUtils.saveImage(img, encrypted_image_filename);
+  cout << "Encryption completed!" << endl;
+}
+
+void saveDecryptedText(string& formatted_result)
+{
+  auto decrypted_filename = "decrypted_output.txt";
+
+  //write to file
+  ofstream output_file (decrypted_filename);
+  if (output_file.is_open())
+  {
+    output_file << formatted_result;
+    output_file.close();
+  }
+  else cout << "Unable to open file";
+
+  cout << "Decryption completed!" << endl;
 }

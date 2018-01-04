@@ -11,15 +11,14 @@ class Colour {
   // class constructor (sets all attributes)
   Colour(int red, int green, int blue);
 
-  // returns pixel intensity for specific colour
-  int getred() const;
-  int getgreen() const;
-  int getblue() const;
-  
-  // sets pixel intensity for specific RGB component
-  void setred(int value);
-  void setgreen(int value);
-  void setblue(int value);
+  // returns pixel intensity for different RGB colour components
+  int getRed() const;
+  int getGreen() const;
+  int getBlue() const;
+
+  // sets pixel intensity for specific colour component containing colour
+  //representation's LSB
+  void setBlue(int value);
 
   private:
 

@@ -18,17 +18,17 @@ class Picture {
   Picture(int width, int height);
 
   // returns dimensions of image
-  int getwidth();
-  int getheight();
+  int getWidth();
+  int getHeight();
 
   // returns single pixel from image represented as Colour
-  Colour getpixel(int x, int y);
+  Colour getPixel(int x, int y);
 
   // sets pixel in the image to provided colour
-  void setpixel(int x, int y, Colour rgb);
+  void setPixel(int x, int y, Colour rgb);
 
   // provides the image of the class
-  cv::Mat getimage();
+  cv::Mat getImage();
 
   private:
 

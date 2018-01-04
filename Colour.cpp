@@ -6,32 +6,22 @@ Colour::Colour(int red, int green, int blue){
   this->blue = blue;
 }
 
-int Colour::getred() const
+int Colour::getRed() const
 {
   return red;
 }
 
-int Colour::getgreen() const
+int Colour::getGreen() const
 {
   return green;
 }
 
-int Colour::getblue() const
+int Colour::getBlue() const
 {
   return blue;
 }
 
-void Colour::setred(int value)
-{
-  red = value;
-}
-
-void Colour::setgreen(int value)
-{
-  green = value;
-}
-
-void Colour::setblue(int value)
+void Colour::setBlue(int value)
 {
   blue = value;
 }

@@ -5,25 +5,25 @@ using cv::Mat;
 
 Picture::Picture(string path)
 {
-  img = imgio.loadimage(path);
+  img = imgio.loadImage(path);
 }
 
 Picture::Picture(int width, int height)
 {
-  img = imgio.createimage(width, height);
+  img = imgio.createImage(width, height);
 }
 
-int Picture::getwidth()
+int Picture::getWidth()
 {
   return img.size().width;
 }
 
-int Picture::getheight()
+int Picture::getHeight()
 {
   return img.size().height;
 }
 
-Colour Picture::getpixel(int x, int y)
+Colour Picture::getPixel(int x, int y)
 {
   //opencv pixels stored as (y,x) vector
   cv::Vec3b pixel = img.at<cv::Vec3b>(y,x);
@@ -31,15 +31,15 @@ Colour Picture::getpixel(int x, int y)
   return rgb;
 }
 
-void Picture::setpixel(int x, int y, Colour rgb)
+void Picture::setPixel(int x, int y, Colour rgb)
 {
   //opencv pixels stored as (y,x) vector
-  img.at<cv::Vec3b>(y,x)[BLUE] = rgb.getblue();
-  img.at<cv::Vec3b>(y,x)[GREEN] = rgb.getgreen();
-  img.at<cv::Vec3b>(y,x)[RED] = rgb.getred();
+  img.at<cv::Vec3b>(y,x)[BLUE] = rgb.getBlue();
+  img.at<cv::Vec3b>(y,x)[GREEN] = rgb.getGreen();
+  img.at<cv::Vec3b>(y,x)[RED] = rgb.getRed();
 }
 
-Mat Picture::getimage()
+Mat Picture::getImage()
 {
   return img;
 }
