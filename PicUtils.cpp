@@ -74,7 +74,7 @@ void encryptImage(const string& image_filename, const string& text_filename)
   auto binary_contents = getBinaryFileContents(text_filename);
   //check that message is not too long to be encrypted
   checkFullMessageCanBeEncrypted(binary_contents.size(), height, width);
-
+  
   auto binary_iter = binary_contents.begin();
   int binary_counter = UNICODE_BITS;
 
@@ -94,10 +94,7 @@ void encryptImage(const string& image_filename, const string& text_filename)
         img->setPixel(x, y, current);
         updateBinaryEncIterator(binary_counter, binary_iter);
       }
-      else
-      {
-        break;
-      }
+      else break;
     }
   }
 
@@ -110,11 +107,12 @@ void checkFullMessageCanBeEncrypted(string::size_type message_len,
   auto num_pixels = (unsigned) width * height;
   auto overhead = (unsigned) strlen(END_OF_MESSAGE);
 
-  if (message_len + overhead > num_pixels)
+  if ((message_len + overhead) * UNICODE_BITS > num_pixels)
   {
     cout << "Sorry. The message is too long to be encrypted in this file."
       << " Either use an image with larger dimensions or text with "
-      << "less than or equal to " << num_pixels << " characters." << endl;
+      << "less than or equal to " << (uint32_t) num_pixels / 16 
+      << " characters." << endl;
     exit(1);
   }
 }
@@ -194,7 +192,8 @@ string decryptedMessage(string& decrypted)
 
   if (n == string::npos) {
     cout << decrypted << endl;
-    cerr << "End of message key word not found. Decryption failed!" << endl;
+    cerr << "End of message key word not found. Full decryption failed!" 
+      << endl;
     exit(1);
   }
 

@@ -57,11 +57,12 @@ string getStringFileContents(ifstream& input_file)
 
 void checkFileContainsOnlyUnicode(const string& file_contents)
 {
-  for(auto current : file_contents)
+  for(char current : file_contents)
   {
-    if (current < 0 || current > MAX_UNICODE_VAL)
+    uint16_t current_index = current;
+    if (current_index < 0 || current_index > MAX_UNICODE_VAL)
     {
-      cerr << "The following character: " << current
+      cerr << "The following character index: " << current_index
         << " is out of UNICODE range!";
       exit(1);
     }
@@ -70,7 +71,7 @@ void checkFileContainsOnlyUnicode(const string& file_contents)
 
 char convertBinToChar(const bitset<UNICODE_BITS>& bin_rep)
 {
-  return (int)(bin_rep.to_ulong());
+  return (uint16_t)(bin_rep.to_ulong());
 }
 
 void checkValidFileExtension(const string& filename)
