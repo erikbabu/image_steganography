@@ -7,11 +7,11 @@ OPEN_CV2 = `pkg-config --libs opencv`
 img_steg: $(OBJS)
 	$(CC) $(CFLAGS) $(OPEN_CV1) $(OBJS) $(OPEN_CV2) -o img_steg
 
-Main.o: Main.cpp FileUtils.hpp
+Main.o: Main.cpp PicUtils.hpp
 
-FileUtils.o: FileUtils.cpp FileUtils.hpp
+FileUtils.o: FileUtils.cpp FileUtils.hpp PicUtils.hpp
 
-PicUtils.o: PicUtils.cpp PicUtils.hpp Colour.hpp
+PicUtils.o: PicUtils.cpp PicUtils.hpp FileUtils.hpp Colour.hpp
 
 Picture.o: Picture.cpp Picture.hpp Colour.hpp PicUtils.hpp
 
