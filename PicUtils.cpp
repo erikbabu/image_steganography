@@ -72,6 +72,8 @@ void encryptImage(const string& image_filename, const string& text_filename)
 
   //get the binary representation of the text file contents
   auto binary_contents = getBinaryFileContents(text_filename);
+  //check that message is not too long to be encrypted
+  checkFullMessageCanBeEncrypted(binary_contents.size(), height, width);
 
   auto binary_iter = binary_contents.begin();
   int binary_counter = UNICODE_BITS;
@@ -100,6 +102,21 @@ void encryptImage(const string& image_filename, const string& text_filename)
   }
 
   saveEncryptedImage(img->getImage());
+}
+
+void checkFullMessageCanBeEncrypted(string::size_type message_len,
+    int width, int height)
+{
+  auto num_pixels = (unsigned) width * height;
+  auto overhead = (unsigned) strlen(END_OF_MESSAGE);
+
+  if (message_len + overhead > num_pixels)
+  {
+    cout << "Sorry. The message is too long to be encrypted in this file."
+      << " Either use an image with larger dimensions or text with "
+      << "less than or equal to " << num_pixels << " characters." << endl;
+    exit(1);
+  }
 }
 
 template<class Iterator> void updateBinaryEncIterator(int& count, Iterator& iter)

@@ -24,6 +24,11 @@ class PicUtils{
 //reads the input from the textfile and encrypts that data into the image file
 void encryptImage(const std::string& image_filename, const std::string& text_filename);
 
+//checks that the number of characters (including terminating word) 
+//to be encoded is less than the total number of pixels
+void checkFullMessageCanBeEncrypted(std::string::size_type message_len, 
+    int width, int height);  
+
 //helper function for encryptImage. It updates the counter that reads from
 //the binary representation of the text file
 template<typename Iterator> void updateBinaryEncIterator(int& count, Iterator& iter);
