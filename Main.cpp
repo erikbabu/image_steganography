@@ -9,7 +9,11 @@ void displayInstructions();
 
 int main(int argc, char **argv)
 {
-  if (argc > 3 || argc < 2) displayInstructions();
+  if (argc > 3 || argc < 2) 
+  {
+    displayInstructions();
+    exit(1);
+  }
 
   auto image_filename = argv[1];
   auto text_filename = argv[2];
